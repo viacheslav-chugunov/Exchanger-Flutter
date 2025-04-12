@@ -9,7 +9,7 @@ class ExchangerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: exchangerTheme,
+      theme: ExchangerTheme().light(),
       routes: {
         "/": (context) => const PickPairScreen(),
         "/rate": (context) => const RateScreen()

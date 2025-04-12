@@ -12,7 +12,8 @@ class PickPairScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pick a pair')
+        title: const Text('Pick a pair'),
+        forceMaterialTransparency: true,
       ),
       body: Column(
         children: [
@@ -52,7 +53,7 @@ class PickPairScreen extends StatelessWidget {
                 )
             );
           },
-          child: const Icon(Icons.done),
+          child: const Icon(Icons.navigate_next),
       ),
     );
   }
