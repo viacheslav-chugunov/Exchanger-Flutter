@@ -1,9 +1,9 @@
 import 'package:exchanger/core/ui/component/currency_tile_component.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/model/currency.dart';
-import '../../../../core/model/exchange_pair.dart';
-import '../../../../core/ui/component/exchange_pair_component.dart';
+import '../../../../../core/model/currency.dart';
+import '../../../../../core/model/exchange_pair.dart';
+import '../../../../../core/ui/component/exchange_pair_component.dart';
 
 class PickPairScreen extends StatelessWidget {
   const PickPairScreen({super.key});
@@ -43,11 +43,16 @@ class PickPairScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-
+            Navigator.pushNamed(
+                context,
+                "/rate",
+                arguments: ExchangePair(
+                    Currency.gel(3.13),
+                    Currency.usd(1.14)
+                )
+            );
           },
-          child: const Icon(
-              Icons.done
-          ),
+          child: const Icon(Icons.done),
       ),
     );
   }

@@ -10,7 +10,7 @@ class ExchangePairComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rate = pair != null ? (pair?.fromCurrency?.rate ?? 0.0) / (pair?.toCurrency?.rate ?? 0.0) : -1;
+    final rate = pair != null ? (pair?.toCurrency?.rate ?? 0.0) / (pair?.fromCurrency?.rate ?? 0.0) : -1;
     final rateString = rate == -1 ? "" : "1 : ${rate.toStringAsFixed(2)}";
     final fromImagePath = pair?.fromCurrency?.imagePath ?? "";
     final toImagePath = pair?.toCurrency?.imagePath ?? "";
