@@ -10,5 +10,6 @@ class Currency {
   const Currency.rub(double rate): this(rate, "Russian Ruble", "RUB", "ru.svg");
   const Currency.usd(double rate): this(rate, "US Dollar", "USD", "us.svg");
   const Currency.gel(double rate): this(rate, "Georgian Lari", "GEL", "ge.svg");
+  const Currency.eur(double rate): this(rate, "Euro", "EUR", "eu.svg");
 
 }

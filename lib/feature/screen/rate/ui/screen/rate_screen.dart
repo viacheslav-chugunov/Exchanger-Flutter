@@ -38,6 +38,19 @@ class _RateScreenState extends State<RateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  final temp = fromCurrencyInput;
+                  fromCurrencyInput = toCurrencyInput;
+                  toCurrencyInput = temp;
+                  exchangePair = exchangePair?.swap();
+                });
+              },
+              icon: const Icon(Icons.swap_vert)
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -97,18 +110,19 @@ class _RateScreenState extends State<RateScreen> {
                       ),
                     ),
                     onInputChanged: (input) {
-                      toCurrencyInput = input;
-                      if (input.isNotEmpty) {
-                        final intInput = int.parse(input);
-                        if (intInput > 0) {
-                          fromCurrencyInput = (intInput / rate).toStringAsFixed(2);
+                      setState(() {
+                        toCurrencyInput = input;
+                        if (input.isNotEmpty) {
+                          final intInput = int.parse(input);
+                          if (intInput > 0) {
+                            fromCurrencyInput = (intInput / rate).toStringAsFixed(2);
+                          } else {
+                            fromCurrencyInput = "";
+                          }
                         } else {
                           fromCurrencyInput = "";
                         }
-                      } else {
-                        fromCurrencyInput = "";
-                      }
-                      setState(() {});
+                      });
                     },
                   )
               ),

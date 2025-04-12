@@ -3,14 +3,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../model/exchange_pair.dart';
 
-class ExchangePairComponent extends StatelessWidget {
-  final ExchangePair? pair;
+class ExchangePairComponent extends StatefulWidget {
+  ExchangePair? pair;
+  Function? onFromTap;
+  Function? onToTap;
 
-  const ExchangePairComponent({super.key, required this.pair});
+
+  ExchangePairComponent({super.key, this.pair, this.onFromTap, this.onToTap});
 
   @override
+  State<ExchangePairComponent> createState() => _ExchangePairComponentState();
+}
+
+class _ExchangePairComponentState extends State<ExchangePairComponent> {
+  @override
   Widget build(BuildContext context) {
-    final rate = pair != null ? (pair?.toCurrency?.rate ?? 0.0) / (pair?.fromCurrency?.rate ?? 0.0) : -1;
+    final pair = widget.pair;
+    final rate = pair != null && pair.isNotEmpty() ? (pair.toCurrency!.rate) / (pair.fromCurrency!.rate) : -1;
     final rateString = rate == -1 ? "" : "1 : ${rate.toStringAsFixed(2)}";
     final fromImagePath = pair?.fromCurrency?.imagePath ?? "";
     final toImagePath = pair?.toCurrency?.imagePath ?? "";
@@ -33,7 +42,10 @@ class ExchangePairComponent extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   onTap: () {
-                    debugPrint("fromCurrency tapped");
+                    var onFromTap = widget.onFromTap;
+                    if (onFromTap != null) {
+                      onFromTap();
+                    }
                   },
                 )
               ),
@@ -60,7 +72,10 @@ class ExchangePairComponent extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     onTap: () {
-                      debugPrint("toCurrency tapped");
+                      var onToTap = widget.onToTap;
+                      if (onToTap != null) {
+                        onToTap();
+                      }
                     },
                   )
               ),
@@ -72,5 +87,4 @@ class ExchangePairComponent extends StatelessWidget {
         ],
     );
   }
-
 }

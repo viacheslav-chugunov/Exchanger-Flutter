@@ -2,16 +2,22 @@ import 'package:exchanger/core/model/currency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CurrencyTileComponent extends StatelessWidget {
+class CurrencyTileComponent extends StatefulWidget {
   final Currency currency;
+  final void Function()? onTap;
 
-  const CurrencyTileComponent({super.key, required this.currency});
+  const CurrencyTileComponent({super.key, required this.currency, this.onTap});
 
+  @override
+  State<CurrencyTileComponent> createState() => _CurrencyTileComponentState();
+}
+
+class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        debugPrint("Currency tapped");
+        widget.onTap?.call();
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -22,7 +28,7 @@ class CurrencyTileComponent extends StatelessWidget {
               children: [
                 ClipOval(
                   child: SvgPicture.asset(
-                    currency.imagePath,
+                    widget.currency.imagePath,
                     width: 48,
                     height: 48,
                     fit: BoxFit.cover,
@@ -30,14 +36,14 @@ class CurrencyTileComponent extends StatelessWidget {
                 ),
                 SizedBox(width: 24),
                 Text(
-                  currency.fullName,
+                  widget.currency.fullName,
                   style: TextStyle(
                       fontSize: 20
                   ),
                 ),
                 Spacer(),
                 Text(
-                  "[${currency.briefName}]",
+                  "[${widget.currency.briefName}]",
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -48,5 +54,4 @@ class CurrencyTileComponent extends StatelessWidget {
       )
     );
   }
-
 }
