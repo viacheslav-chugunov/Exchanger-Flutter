@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../model/exchange_pair.dart';
+import '../../../../../core/model/exchange_pair.dart';
 
 class ExchangePairComponent extends StatefulWidget {
   ExchangePair? pair;
