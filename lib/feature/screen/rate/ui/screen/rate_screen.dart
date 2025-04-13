@@ -1,5 +1,7 @@
 import 'package:exchanger/core/model/exchange_pair.dart';
 import 'package:exchanger/feature/screen/rate/ui/component/currency_input_component.dart';
+import 'package:exchanger/feature/screen/rate/ui/screen/rate_action.dart';
+import 'package:exchanger/feature/screen/rate/ui/screen/rate_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -11,27 +13,27 @@ class RateScreen extends StatefulWidget {
 }
 
 class _RateScreenState extends State<RateScreen> {
-  ExchangePair? exchangePair;
-  var fromCurrencyInput = "";
-  var toCurrencyInput = "";
+  late RateViewModel viewModel;
 
   @override
   void didChangeDependencies() {
-    exchangePair = ModalRoute.of(context)?.settings.arguments as ExchangePair?;
+    final exchangePair = ModalRoute.of(context)?.settings.arguments as ExchangePair;
+    viewModel = RateViewModel(() => setState(() {}), exchangePair);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final fromIconPath = exchangePair?.fromCurrency?.imagePath ?? "";
-    final toIconPath = exchangePair?.toCurrency?.imagePath ?? "";
-    final fromHint = exchangePair?.fromCurrency?.fullName;
-    final toHint = exchangePair?.toCurrency?.fullName;
-    final fromBrief = exchangePair?.fromCurrency?.briefName;
-    final toBrief = exchangePair?.toCurrency?.briefName;
+    final state = viewModel.state;
+    final fromIconPath = state.exchangePair.fromCurrency?.imagePath ?? "";
+    final toIconPath = state.exchangePair.toCurrency?.imagePath ?? "";
+    final fromHint = state.exchangePair.fromCurrency?.fullName;
+    final toHint = state.exchangePair.toCurrency?.fullName;
+    final fromBrief = state.exchangePair.fromCurrency?.briefName;
+    final toBrief = state.exchangePair.toCurrency?.briefName;
     final title = fromBrief != null && toBrief != null ? "$fromBrief / $toBrief" : "";
-    final fromRate = exchangePair?.fromCurrency?.rate;
-    final toRate = exchangePair?.toCurrency?.rate;
+    final fromRate = state.exchangePair.fromCurrency?.rate;
+    final toRate = state.exchangePair.toCurrency?.rate;
     final rate = fromRate != null && toRate != null ? toRate / fromRate : -1;
     final rateString = rate == -1 ? "" : "1 $fromBrief = ${rate.toStringAsFixed(2)} $toBrief";
 
@@ -41,12 +43,7 @@ class _RateScreenState extends State<RateScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                setState(() {
-                  final temp = fromCurrencyInput;
-                  fromCurrencyInput = toCurrencyInput;
-                  toCurrencyInput = temp;
-                  exchangePair = exchangePair?.swap();
-                });
+                viewModel.handle(RateActionSwapCurrencies());
               },
               icon: const Icon(Icons.swap_vert)
           )
@@ -65,7 +62,7 @@ class _RateScreenState extends State<RateScreen> {
               child: CurrencyInputComponent(
                 args: CurrencyInputComponentArgs(
                   hint: fromHint,
-                  input: fromCurrencyInput,
+                  input: state.fromCurrencyInput,
                   icon: ClipOval(
                     child: SvgPicture.asset(
                       fromIconPath,
@@ -75,18 +72,7 @@ class _RateScreenState extends State<RateScreen> {
                     ),
                   ),
                   onInputChanged: (input) {
-                    fromCurrencyInput = input;
-                    if (input.isNotEmpty) {
-                      final intInput = int.parse(input);
-                      if (intInput > 0) {
-                        toCurrencyInput = (intInput * rate).toStringAsFixed(2);
-                      } else {
-                        toCurrencyInput = "";
-                      }
-                    } else {
-                      toCurrencyInput = "";
-                    }
-                    setState(() {});
+                    viewModel.handle(RateActionRecalculateToCurrency(input));
                   },
                 ),
               ),
@@ -99,7 +85,7 @@ class _RateScreenState extends State<RateScreen> {
                 ),
               child: CurrencyInputComponent(
                   args: CurrencyInputComponentArgs(
-                    input: toCurrencyInput,
+                    input: state.toCurrencyInput,
                     hint: toHint,
                     icon: ClipOval(
                       child: SvgPicture.asset(
@@ -110,19 +96,7 @@ class _RateScreenState extends State<RateScreen> {
                       ),
                     ),
                     onInputChanged: (input) {
-                      setState(() {
-                        toCurrencyInput = input;
-                        if (input.isNotEmpty) {
-                          final intInput = int.parse(input);
-                          if (intInput > 0) {
-                            fromCurrencyInput = (intInput / rate).toStringAsFixed(2);
-                          } else {
-                            fromCurrencyInput = "";
-                          }
-                        } else {
-                          fromCurrencyInput = "";
-                        }
-                      });
+                      viewModel.handle(RateActionRecalculateFromCurrency(input));
                     },
                   )
               ),
