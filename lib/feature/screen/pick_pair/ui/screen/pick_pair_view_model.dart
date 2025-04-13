@@ -1,4 +1,5 @@
 import 'package:exchanger/core/base/view_model.dart';
+import 'package:exchanger/core/di/app_graph.dart';
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_action.dart';
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_state.dart';
 
@@ -7,7 +8,7 @@ import '../../../../network/repository/default_currency_network_repository.dart'
 import '../../model/picking_currency_type.dart';
 
 class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
-  final CurrencyNetworkRepository currencyNetworkRepository = DefaultCurrencyNetworkRepository();
+  final CurrencyNetworkRepository currencyNetworkRepository = appGraph.inject();
 
   PickPairViewModel(Function emit) : super(PickPairState(), emit) {
     _loadCurrencies();
