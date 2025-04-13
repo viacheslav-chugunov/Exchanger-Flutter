@@ -25,21 +25,10 @@ class _RateScreenState extends State<RateScreen> {
   @override
   Widget build(BuildContext context) {
     final state = viewModel.state;
-    final fromIconPath = state.exchangePair.fromCurrency?.imagePath ?? "";
-    final toIconPath = state.exchangePair.toCurrency?.imagePath ?? "";
-    final fromHint = state.exchangePair.fromCurrency?.fullName;
-    final toHint = state.exchangePair.toCurrency?.fullName;
-    final fromBrief = state.exchangePair.fromCurrency?.briefName;
-    final toBrief = state.exchangePair.toCurrency?.briefName;
-    final title = fromBrief != null && toBrief != null ? "$fromBrief / $toBrief" : "";
-    final fromRate = state.exchangePair.fromCurrency?.rate;
-    final toRate = state.exchangePair.toCurrency?.rate;
-    final rate = fromRate != null && toRate != null ? toRate / fromRate : -1;
-    final rateString = rate == -1 ? "" : "1 $fromBrief = ${rate.toStringAsFixed(2)} $toBrief";
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(state.title()),
         actions: [
           IconButton(
               onPressed: () {
@@ -61,11 +50,11 @@ class _RateScreenState extends State<RateScreen> {
                 ),
               child: CurrencyInputComponent(
                 args: CurrencyInputComponentArgs(
-                  hint: fromHint,
+                  hint: state.fromHint(),
                   input: state.fromCurrencyInput,
                   icon: ClipOval(
                     child: SvgPicture.asset(
-                      fromIconPath,
+                      state.fromIconPath(),
                       width: 48,
                       height: 48,
                       fit: BoxFit.cover,
@@ -86,10 +75,10 @@ class _RateScreenState extends State<RateScreen> {
               child: CurrencyInputComponent(
                   args: CurrencyInputComponentArgs(
                     input: state.toCurrencyInput,
-                    hint: toHint,
+                    hint: state.toHint(),
                     icon: ClipOval(
                       child: SvgPicture.asset(
-                          toIconPath,
+                          state.toIconPath(),
                           width: 48,
                           height: 48,
                           fit: BoxFit.cover
@@ -102,7 +91,7 @@ class _RateScreenState extends State<RateScreen> {
               ),
             ),
             Text(
-                rateString,
+                state.rateString(),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

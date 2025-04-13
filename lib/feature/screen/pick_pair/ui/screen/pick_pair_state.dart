@@ -11,6 +11,10 @@ class PickPairState {
   var pickingCurrency = PickingCurrencyType.from;
 
   String title() {
+    if (loadingCurrencies || failedToLoadCurrencies) {
+      return "";
+    }
+
     String title;
     switch (pickingCurrency) {
       case PickingCurrencyType.from:

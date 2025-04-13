@@ -4,4 +4,8 @@ abstract class DiGraph {
   final di = GetIt.instance;
 
   void init();
+
+  E inject<E extends Object>() {
+    return di.get<E>();
+  }
 }

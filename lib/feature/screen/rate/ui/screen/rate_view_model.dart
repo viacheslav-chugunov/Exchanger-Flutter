@@ -21,7 +21,7 @@ class RateViewModel extends ViewModel<RateState, RateAction> {
       case RateActionRecalculateToCurrency():
         state.fromCurrencyInput = action.fromCurrencyInput;
         if (action.fromCurrencyInput.isNotEmpty) {
-          final intInput = int.parse(action.fromCurrencyInput);
+          final intInput = num.parse(action.fromCurrencyInput);
           if (intInput > 0) {
             state.toCurrencyInput = (intInput * state.rate()).toStringAsFixed(2);
           } else {
@@ -35,7 +35,7 @@ class RateViewModel extends ViewModel<RateState, RateAction> {
       case RateActionRecalculateFromCurrency():
         state.toCurrencyInput = action.toCurrencyInput;
         if (action.toCurrencyInput.isNotEmpty) {
-          final intInput = int.parse(action.toCurrencyInput);
+          final intInput = num.parse(action.toCurrencyInput);
           if (intInput > 0) {
             state.fromCurrencyInput = (intInput / state.rate()).toStringAsFixed(2);
           } else {

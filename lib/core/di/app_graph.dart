@@ -9,10 +9,6 @@ class AppGraph extends DiGraph {
     NetworkGraph().init();
   }
 
-  E inject<E extends Object>() {
-    return di.get<E>();
-  }
-
 }
 
 final appGraph = AppGraph();

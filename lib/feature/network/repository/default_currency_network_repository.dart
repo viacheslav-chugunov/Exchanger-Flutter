@@ -5,10 +5,14 @@ import '../../../core/model/async_result.dart';
 import '../../../core/repository/currency_network_repository.dart';
 
 class DefaultCurrencyNetworkRepository implements CurrencyNetworkRepository {
+  final Dio _dio;
+
+  DefaultCurrencyNetworkRepository(this._dio);
+
   @override
   Future<AsyncResult<List<Currency>>> currencies() async {
     try {
-      final response = await Dio().get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json");
+      final response = await _dio.get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json");
       final data = response.data as Map<String, dynamic>;
       final rates = data["eur"] as Map<String, dynamic>;
       final currencies = [
@@ -39,7 +43,7 @@ class DefaultCurrencyNetworkRepository implements CurrencyNetworkRepository {
         Currency.thb(rates["thb"] as num),
         Currency.try_(rates["try"] as num),
         Currency.vnd(rates["vnd"] as num),
-      ];
+      ]..sort((a, b) => a.fullName.compareTo(b.fullName));
       return AsyncResult.success(currencies);
     } on Exception catch (e) {
       return AsyncResult.failure(e);

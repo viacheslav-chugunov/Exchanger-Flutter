@@ -42,10 +42,7 @@ class _ExchangePairComponentState extends State<ExchangePairComponent> {
                     fit: BoxFit.cover,
                   ),
                   onTap: () {
-                    var onFromTap = widget.onFromTap;
-                    if (onFromTap != null) {
-                      onFromTap();
-                    }
+                    widget.onFromTap?.call();
                   },
                 )
               ),
@@ -72,10 +69,7 @@ class _ExchangePairComponentState extends State<ExchangePairComponent> {
                       fit: BoxFit.cover,
                     ),
                     onTap: () {
-                      var onToTap = widget.onToTap;
-                      if (onToTap != null) {
-                        onToTap();
-                      }
+                      widget.onToTap?.call();
                     },
                   )
               ),

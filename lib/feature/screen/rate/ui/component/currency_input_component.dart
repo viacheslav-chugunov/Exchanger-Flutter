@@ -48,10 +48,7 @@ class _CurrencyInputComponentState extends State<CurrencyInputComponent> {
             icon: args?.icon
         ),
         onChanged: (text) {
-          final onInputChanged = args?.onInputChanged;
-          if (onInputChanged != null) {
-            onInputChanged(text);
-          }
+          args?.onInputChanged?.call(text);
         },
         keyboardType: TextInputType.numberWithOptions(
             decimal: true,
@@ -59,7 +56,7 @@ class _CurrencyInputComponentState extends State<CurrencyInputComponent> {
         ),
         controller: _controller,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\+?\d*',)),
+          FilteringTextInputFormatter.allow(RegExp(r"(^\d*\.?\d*)")),
         ]
     );
   }

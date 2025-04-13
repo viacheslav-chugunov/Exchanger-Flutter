@@ -1,5 +1,4 @@
 import 'package:exchanger/core/model/currency.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,7 +16,9 @@ class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        widget.onTap?.call();
+      },
       child: GestureDetector(
           onTap: () {
             widget.onTap?.call();
@@ -43,7 +44,9 @@ class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
                     style: TextStyle(
                         fontSize: 20
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  SizedBox(width: 16),
                   Spacer(),
                   Text(
                     "[${widget.currency.briefName}]",
