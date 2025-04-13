@@ -14,6 +14,7 @@ dependencies:
   flutter_svg: ^2.0.17
   dio: ^5.8.0+1
   get_it: ^8.0.3
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,4 @@ flutter:
 
   assets:
      - assets/flags/
+     - assets/app_icon/icon.png
