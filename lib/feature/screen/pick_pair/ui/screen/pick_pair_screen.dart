@@ -17,31 +17,73 @@ class PickPairScreen extends StatefulWidget {
 }
 
 class _PickPairScreenState extends State<PickPairScreen> {
+  final _searchController = TextEditingController();
   late PickPairViewModel viewModel;
 
   @override
   void initState() {
-    viewModel = PickPairViewModel(() {
-      setState(() {});
-    });
+    viewModel = PickPairViewModel(() {setState(() {});});
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final state = viewModel.state;
+    final visibleCurrencies = state.visibleCurrencies();
+
+    _searchController.text = state.searchQuery;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(state.title()),
+        title: Builder(
+            builder: (context) {
+              if (!state.showSearch) {
+                return Text(state.title());
+              }
+              return TextField(
+                controller: _searchController,
+                onChanged: (query) {
+                  viewModel.handle(PickPairActionSetSearchQuery(query));
+                },
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Enter name of currency"
+                ),
+                textCapitalization: TextCapitalization.sentences,
+                autofocus: true
+              );
+            }
+        ),
         forceMaterialTransparency: true,
-        actions: state.pairPicked() ? [
-          IconButton(
-              onPressed: () {
-                viewModel.handle(PickPairActionSwapExchangePairs());
-              },
-              icon: const Icon(Icons.swap_vert)
-          )
-        ] : null,
+        actions: [
+          if (state.pairPicked())
+            IconButton(
+                onPressed: () {
+                  viewModel.handle(PickPairActionSwapExchangePairs());
+                },
+                icon: const Icon(Icons.swap_vert)
+            ),
+          if (!state.showSearch)
+            IconButton(
+                onPressed: () {
+                  viewModel.handle(PickPairActionShowSearch(true));
+                },
+                icon: const Icon(Icons.search)
+            ),
+          if (state.showSearch)
+            IconButton(
+                onPressed: () {
+                  viewModel.handle(PickPairActionShowSearch(false));
+                },
+                icon: const Icon(Icons.close)
+            )
+        ],
       ),
       body: Builder(
           builder: (context) {
@@ -90,12 +132,12 @@ class _PickPairScreenState extends State<PickPairScreen> {
                   SizedBox(height: state.pairPicked() ? 12 : 0),
                   Expanded(
                       child: ListView.builder(
-                          itemCount: state.currencies.length,
+                          itemCount: visibleCurrencies.length,
                           itemBuilder: (context, index) {
                             return CurrencyTileComponent(
-                              currency: state.currencies[index],
+                              currency: visibleCurrencies[index],
                               onTap: () {
-                                viewModel.handle(PickPairActionSelectCurrency(state.currencies[index]));
+                                viewModel.handle(PickPairActionSelectCurrency(visibleCurrencies[index]));
                               },
                             );
                           }

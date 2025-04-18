@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../../../../../core/model/currency.dart';
 
 sealed class PickPairAction {}
@@ -15,3 +17,15 @@ class PickPairActionSelectCurrency implements PickPairAction {
 }
 
 class PickPairActionReloadCurrencies implements PickPairAction {}
+
+class PickPairActionShowSearch implements PickPairAction {
+  final bool show;
+
+  PickPairActionShowSearch(this.show);
+}
+
+class PickPairActionSetSearchQuery implements PickPairAction {
+  final String query;
+
+  PickPairActionSetSearchQuery(this.query);
+}

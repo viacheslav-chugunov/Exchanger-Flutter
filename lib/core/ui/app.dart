@@ -18,7 +18,7 @@ class ExchangerApp extends StatelessWidget {
       theme: scheme,
       routes: {
         "/": (context) => const PickPairScreen(),
-        "/rate": (context) => const RateScreen()
+        "/rate": (context) => const RateScreen(),
       },
     );
   }

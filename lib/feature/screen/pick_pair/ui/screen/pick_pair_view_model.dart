@@ -30,6 +30,7 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
         emit();
 
       case PickPairActionSelectCurrency():
+        final pairWasPicked = state.pairPicked();
         switch (state.pickingCurrency) {
           case PickingCurrencyType.from:
             state.exchangePair.fromCurrency = action.currency;
@@ -38,6 +39,10 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
             } else {
               state.pickingCurrency = PickingCurrencyType.to;
             }
+            if (!pairWasPicked) {
+              state.showSearch = false;
+              state.searchQuery = "";
+            }
             emit();
           case PickingCurrencyType.to:
             state.exchangePair.toCurrency = action.currency;
@@ -45,6 +50,10 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
               state.pickingCurrency = PickingCurrencyType.none;
             } else {
               state.pickingCurrency = PickingCurrencyType.from;
+            }
+            if (!pairWasPicked) {
+              state.showSearch = false;
+              state.searchQuery = "";
             }
             emit();
           case PickingCurrencyType.none:
@@ -56,21 +65,29 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
         state.failedToLoadCurrencies = false;
         emit();
         _loadCurrencies();
+
+      case PickPairActionShowSearch():
+        state.showSearch = action.show;
+        state.searchQuery = "";
+        emit();
+
+      case PickPairActionSetSearchQuery():
+        state.searchQuery = action.query;
+        emit();
     }
   }
 
-  void _loadCurrencies() {
-    currencyNetworkRepository.currencies().then((result) {
-      if (result.isSuccess) {
-        state.currencies = result.data!;
-        state.loadingCurrencies = false;
-        emit();
-      } else if (result.isFailure) {
-        state.loadingCurrencies = false;
-        state.failedToLoadCurrencies = true;
-        emit();
-      }
-    });
+  void _loadCurrencies() async {
+    final result = await currencyNetworkRepository.currencies();
+    if (result.isSuccess) {
+      state.currencies = result.data!;
+      state.loadingCurrencies = false;
+      emit();
+    } else if (result.isFailure) {
+      state.loadingCurrencies = false;
+      state.failedToLoadCurrencies = true;
+      emit();
+    }
   }
 
 }
