@@ -128,6 +128,8 @@ class _PickPairScreenState extends State<PickPairScreen> {
                     onToTap: () {
                       viewModel.handle(PickPairActionPickToCurrency());
                     },
+                    pickingFrom: state.pickingCurrency == PickingCurrencyType.from,
+                    pickingTo: state.pickingCurrency == PickingCurrencyType.to,
                   ) : Container(),
                   SizedBox(height: state.pairPicked() ? 12 : 0),
                   Expanded(
