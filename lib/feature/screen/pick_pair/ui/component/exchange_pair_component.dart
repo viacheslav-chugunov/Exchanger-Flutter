@@ -3,22 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/model/exchange_pair.dart';
 
-class ExchangePairComponent extends StatefulWidget {
-  ExchangePair? pair;
-  Function? onFromTap;
-  Function? onToTap;
+class ExchangePairComponent extends StatelessWidget {
+  final ExchangePair? pair;
+  final Function? onFromTap;
+  final Function? onToTap;
 
+  const ExchangePairComponent({super.key, this.pair, this.onFromTap, this.onToTap});
 
-  ExchangePairComponent({super.key, this.pair, this.onFromTap, this.onToTap});
-
-  @override
-  State<ExchangePairComponent> createState() => _ExchangePairComponentState();
-}
-
-class _ExchangePairComponentState extends State<ExchangePairComponent> {
   @override
   Widget build(BuildContext context) {
-    final pair = widget.pair;
+    final pair = this.pair;
     final rate = pair != null && pair.isNotEmpty() ? (pair.toCurrency!.rate) / (pair.fromCurrency!.rate) : -1;
     final rateString = rate == -1 ? "" : "1 : ${rate.toStringAsFixed(2)}";
     final fromImagePath = pair?.fromCurrency?.imagePath ?? "";
@@ -42,7 +36,7 @@ class _ExchangePairComponentState extends State<ExchangePairComponent> {
                     fit: BoxFit.cover,
                   ),
                   onTap: () {
-                    widget.onFromTap?.call();
+                    onFromTap?.call();
                   },
                 )
               ),
@@ -69,7 +63,7 @@ class _ExchangePairComponentState extends State<ExchangePairComponent> {
                       fit: BoxFit.cover,
                     ),
                     onTap: () {
-                      widget.onToTap?.call();
+                      onToTap?.call();
                     },
                   )
               ),
