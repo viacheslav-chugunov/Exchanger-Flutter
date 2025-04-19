@@ -10,7 +10,7 @@ class PickPairState {
   var failedToLoadCurrencies = false;
   List<Currency> currencies = [];
   var exchangePair = ExchangePair.empty();
-  var pickingCurrency = PickingCurrencyType.from;
+  var pickingCurrency = PickingCurrencyType.none;
 
   String title() {
     if (loadingCurrencies || failedToLoadCurrencies) {

@@ -3,9 +3,9 @@ import 'package:get_it/get_it.dart';
 abstract class DiGraph {
   final di = GetIt.instance;
 
-  void init();
+  Future<void> init();
 
-  E inject<E extends Object>() {
+  E inject<E extends Object>({String? instanceName}) {
     return di.get<E>();
   }
 }

@@ -6,7 +6,7 @@ import '../repository/default_currency_network_repository.dart';
 
 class NetworkGraph extends DiGraph {
   @override
-  void init() {
+  Future<void> init() async {
     di.registerFactory<Dio>(() {
       return Dio();
     });
