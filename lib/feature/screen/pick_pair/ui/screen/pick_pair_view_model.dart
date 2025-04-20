@@ -5,7 +5,6 @@ import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_action.da
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_state.dart';
 
 import '../../../../../core/repository/currency_network_repository.dart';
-import '../../../../network/repository/default_currency_network_repository.dart';
 import '../../model/picking_currency_type.dart';
 
 class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
@@ -79,10 +78,15 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
       case PickPairActionSetSearchQuery():
         state.searchQuery = action.query;
         emit();
+
+      case PickPairActionSetExchangePair():
+        state.exchangePair = action.exchangePair;
+        _savePickedPairToCache();
+        emit();
     }
   }
 
-  void _savePickedPairToCache() async {
+  Future<void> _savePickedPairToCache() async {
     final fromCurrency = state.exchangePair.fromCurrency;
     if (fromCurrency != null) {
       await settingStorageRepository.putLatestFromCurrencyBriefName(fromCurrency.briefName);
@@ -93,7 +97,7 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
     }
   }
 
-  void _loadCurrencies() async {
+  Future<void> _loadCurrencies() async {
     final result = await currencyNetworkRepository.currencies();
     if (result.isSuccess) {
       state.currencies = result.data!;

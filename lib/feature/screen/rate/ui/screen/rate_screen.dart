@@ -37,6 +37,15 @@ class _RateScreenState extends State<RateScreen> {
               icon: const Icon(Icons.swap_vert)
           )
         ],
+        automaticallyImplyLeading: false,
+        leading: CloseButton(
+          onPressed: () {
+            Navigator.pop(
+                context,
+                state.exchangePair
+            );
+          }
+        ),
       ),
       body: Center(
         child: Column(

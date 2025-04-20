@@ -151,12 +151,16 @@ class _PickPairScreenState extends State<PickPairScreen> {
           }
       ),
       floatingActionButton: state.pairPicked() ? FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(
+        onPressed: () async {
+          await Navigator.pushNamed(
               context,
               "/rate",
               arguments: state.exchangePair
-          );
+          ).then((result) {
+            if (result is ExchangePair) {
+              viewModel.handle(PickPairActionSetExchangePair(result));
+            }
+          });
         },
         child: const Icon(Icons.navigate_next),
       ) : null,

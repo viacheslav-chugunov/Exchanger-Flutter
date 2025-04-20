@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import '../../../../../core/model/currency.dart';
+import '../../../../../core/model/exchange_pair.dart';
 
 sealed class PickPairAction {}
 
@@ -28,4 +29,10 @@ class PickPairActionSetSearchQuery implements PickPairAction {
   final String query;
 
   PickPairActionSetSearchQuery(this.query);
+}
+
+class PickPairActionSetExchangePair implements PickPairAction {
+  final ExchangePair exchangePair;
+
+  PickPairActionSetExchangePair(this.exchangePair);
 }
