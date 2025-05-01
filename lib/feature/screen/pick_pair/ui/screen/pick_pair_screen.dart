@@ -2,6 +2,7 @@ import 'package:exchanger/feature/screen/pick_pair/ui/component/currency_tile_co
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_action.dart';
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_state.dart';
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_view_model.dart';
+import 'package:exchanger/l10n/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/model/currency.dart';
@@ -34,6 +35,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
     final state = viewModel.state;
     final visibleCurrencies = state.visibleCurrencies();
 
@@ -44,7 +46,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
         title: Builder(
             builder: (context) {
               if (!state.showSearch) {
-                return Text(state.title());
+                return Text(state.title(localization));
               }
               return TextField(
                 controller: _searchController,
@@ -53,7 +55,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Enter name of currency"
+                    hintText: localization.enterNameOfCurrency
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 autofocus: true
@@ -99,7 +101,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
                       children: [
                         Spacer(flex: 2),
                         Text(
-                          "Failed to load currencies,\ncheck your internet connection\nand try again",
+                          localization.failedToLoadCurrenciesErrorMessage,
                           style: TextStyle(
                               fontSize: 20
                           ),
@@ -110,7 +112,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
                             onPressed: () {
                               viewModel.handle(PickPairActionReloadCurrencies());
                             },
-                            child: Text("Try again")
+                            child: Text(localization.tryAgain)
                         ),
                         Spacer(flex: 3)
                       ],

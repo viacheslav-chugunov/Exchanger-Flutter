@@ -11,7 +11,7 @@ class NetworkGraph extends DiGraph {
       return Dio();
     });
     di.registerFactory<CurrencyNetworkRepository>(() {
-      return DefaultCurrencyNetworkRepository(inject());
+      return DefaultCurrencyNetworkRepository(inject(), inject());
     });
   }
 }

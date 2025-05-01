@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Currency {
   final num rate;
   final String fullName;
@@ -6,33 +8,33 @@ class Currency {
 
   const Currency(this.rate, this.fullName, this.briefName, String image): imagePath = "assets/flags/$image";
 
-  const Currency.uah(num rate): this(rate, "Ukrainian Hryvnia", "UAH", "ua.svg");
-  const Currency.rub(num rate): this(rate, "Russian Ruble", "RUB", "ru.svg");
-  const Currency.usd(num rate): this(rate, "US Dollar", "USD", "us.svg");
-  const Currency.gel(num rate): this(rate, "Georgian Lari", "GEL", "ge.svg");
-  const Currency.eur(num rate): this(rate, "Euro", "EUR", "eu.svg");
-  const Currency.ron(num rate): this(rate, "Romanian Leu", "RON", "ro.svg");
-  const Currency.pln(num rate): this(rate, "Polish Zloty", "PLN", "pl.svg");
-  const Currency.gbp(num rate): this(rate, "British Pound Sterling", "GBP", "gb.svg");
-  const Currency.aud(num rate): this(rate, "Australian Dollar", "AUD", "au.svg");
-  const Currency.cad(num rate): this(rate, "Canadian Dollar", "CAD", "ca.svg");
-  const Currency.chf(num rate): this(rate, "Swiss Franc", "CHF", "ch.svg");
-  const Currency.cny(num rate): this(rate, "Chinese Yuan Renminbi", "CNY", "cn.svg");
-  const Currency.dkk(num rate): this(rate, "Danish Krone", "DKK", "dk.svg");
-  const Currency.hkd(num rate): this(rate, "Hong Kong Dollar", "HKD", "hk.svg");
-  const Currency.hrk(num rate): this(rate, "Croatian Kuna", "HRK", "hr.svg");
-  const Currency.huf(num rate): this(rate, "Hungarian Forint", "HUF", "hu.svg");
-  const Currency.idr(num rate): this(rate, "Indonesian Rupiah", "IDR", "id.svg");
-  const Currency.ils(num rate): this(rate, "Israeli New Shekel", "ILS", "il.svg");
-  const Currency.inr(num rate): this(rate, "Indian Rupee", "INR", "in.svg");
-  const Currency.jpy(num rate): this(rate, "Japanese Yen", "JPY", "jp.svg");
-  const Currency.krw(num rate): this(rate, "South Korean Won", "KRW", "kr.svg");
-  const Currency.mxn(num rate): this(rate, "Mexican Peso", "MXN", "mx.svg");
-  const Currency.zar(num rate): this(rate, "South African Rand", "ZAR", "za.svg");
-  const Currency.sek(num rate): this(rate, "Swedish Krona", "SEK", "se.svg");
-  const Currency.thb(num rate): this(rate, "Thai Baht", "THB", "th.svg");
-  const Currency.try_(num rate): this(rate, "Turkish Lira", "TRY", "tr.svg");
-  const Currency.vnd(num rate): this(rate, "Vietnamese Dong", "VND", "vn.svg");
+  const Currency.uah(String fullName, num rate): this(rate, fullName, "UAH", "ua.svg");
+  const Currency.rub(String fullName, num rate): this(rate, fullName, "RUB", "ru.svg");
+  const Currency.usd(String fullName, num rate): this(rate, fullName, "USD", "us.svg");
+  const Currency.gel(String fullName, num rate): this(rate, fullName, "GEL", "ge.svg");
+  const Currency.eur(String fullName, num rate): this(rate, fullName, "EUR", "eu.svg");
+  const Currency.ron(String fullName, num rate): this(rate, fullName, "RON", "ro.svg");
+  const Currency.pln(String fullName, num rate): this(rate, fullName, "PLN", "pl.svg");
+  const Currency.gbp(String fullName, num rate): this(rate, fullName, "GBP", "gb.svg");
+  const Currency.aud(String fullName, num rate): this(rate, fullName, "AUD", "au.svg");
+  const Currency.cad(String fullName, num rate): this(rate, fullName, "CAD", "ca.svg");
+  const Currency.chf(String fullName, num rate): this(rate, fullName, "CHF", "ch.svg");
+  const Currency.cny(String fullName, num rate): this(rate, fullName, "CNY", "cn.svg");
+  const Currency.dkk(String fullName, num rate): this(rate, fullName, "DKK", "dk.svg");
+  const Currency.hkd(String fullName, num rate): this(rate, fullName, "HKD", "hk.svg");
+  const Currency.hrk(String fullName, num rate): this(rate, fullName, "HRK", "hr.svg");
+  const Currency.huf(String fullName, num rate): this(rate, fullName, "HUF", "hu.svg");
+  const Currency.idr(String fullName, num rate): this(rate, fullName, "IDR", "id.svg");
+  const Currency.ils(String fullName, num rate): this(rate, fullName, "ILS", "il.svg");
+  const Currency.inr(String fullName, num rate): this(rate, fullName, "INR", "in.svg");
+  const Currency.jpy(String fullName, num rate): this(rate, fullName, "JPY", "jp.svg");
+  const Currency.krw(String fullName, num rate): this(rate, fullName, "KRW", "kr.svg");
+  const Currency.mxn(String fullName, num rate): this(rate, fullName, "MXN", "mx.svg");
+  const Currency.zar(String fullName, num rate): this(rate, fullName, "ZAR", "za.svg");
+  const Currency.sek(String fullName, num rate): this(rate, fullName, "SEK", "se.svg");
+  const Currency.thb(String fullName, num rate): this(rate, fullName, "THB", "th.svg");
+  const Currency.try_(String fullName, num rate): this(rate, fullName, "TRY", "tr.svg");
+  const Currency.vnd(String fullName, num rate): this(rate, fullName, "VND", "vn.svg");
 
 
 }

@@ -1,4 +1,5 @@
 import 'package:exchanger/core/model/currency.dart';
+import 'package:exchanger/l10n/gen_l10n/app_localizations.dart';
 
 import '../../../../../core/model/exchange_pair.dart';
 import '../../model/picking_currency_type.dart';
@@ -12,7 +13,7 @@ class PickPairState {
   var exchangePair = ExchangePair.empty();
   var pickingCurrency = PickingCurrencyType.none;
 
-  String title() {
+  String title(AppLocalizations localization) {
     if (loadingCurrencies || failedToLoadCurrencies) {
       return "";
     }
@@ -20,11 +21,11 @@ class PickPairState {
     String title;
     switch (pickingCurrency) {
       case PickingCurrencyType.from:
-        title = "Pick first currency";
+        title = localization.pickFirstCurrency;
       case PickingCurrencyType.to:
-        title = "Pick second currency";
+        title = localization.pickSecondCurrency;
       case PickingCurrencyType.none:
-        title = "Pick a pair";
+        title = localization.pickPair;
     }
     return title;
   }

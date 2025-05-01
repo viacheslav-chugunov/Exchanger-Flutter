@@ -5,6 +5,7 @@ import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_action.da
 import 'package:exchanger/feature/screen/pick_pair/ui/screen/pick_pair_state.dart';
 
 import '../../../../../core/repository/currency_network_repository.dart';
+import '../../../../../l10n/gen_l10n/app_localizations.dart';
 import '../../model/picking_currency_type.dart';
 
 class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
