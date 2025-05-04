@@ -15,12 +15,13 @@ class ExchangePairComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final pair = this.pair;
-    final rate = pair != null && pair.isNotEmpty() ? (pair.toCurrency!.rate) / (pair.fromCurrency!.rate) : -1;
-    final rateString = rate == -1 ? "" : "1 : ${rate.toStringAsFixed(2)}";
-    final fromImagePath = pair?.fromCurrency?.imagePath ?? "";
-    final toImagePath = pair?.toCurrency?.imagePath ?? "";
-    final fromCurrencyName = pair?.fromCurrency?.briefName ?? "";
-    final toCurrencyName = pair?.toCurrency?.briefName ?? "";
+    if (pair == null) return Container();
+    final rate = pair.toCurrency.rate / pair.fromCurrency.rate;
+    final rateString = "1 : ${rate.toStringAsFixed(2)}";
+    final fromImagePath = pair.fromCurrency.imagePath ?? "";
+    final toImagePath = pair.toCurrency.imagePath ?? "";
+    final fromCurrencyName = pair.fromCurrency.briefName ?? "";
+    final toCurrencyName = pair.toCurrency.briefName ?? "";
 
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

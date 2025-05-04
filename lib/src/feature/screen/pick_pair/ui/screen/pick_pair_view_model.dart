@@ -15,7 +15,9 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
   void handle(PickPairAction action) {
     switch (action) {
       case PickPairActionSwapExchangePairs():
-        state.exchangePair = state.exchangePair.swap();
+        final pair = state.exchangePair;
+        if (pair == null) return;
+        state.exchangePair = pair.swap();
         _savePickedPairToCache();
         emit();
 
@@ -28,33 +30,16 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
         emit();
 
       case PickPairActionSelectCurrency():
-        final pairWasPicked = state.pairPicked();
         switch (state.pickingCurrency) {
           case PickingCurrencyType.from:
-            state.exchangePair.fromCurrency = action.currency;
-            if (state.pairPicked()) {
-              state.pickingCurrency = PickingCurrencyType.none;
-              _savePickedPairToCache();
-            } else {
-              state.pickingCurrency = PickingCurrencyType.to;
-            }
-            if (!pairWasPicked) {
-              state.showSearch = false;
-              state.searchQuery = "";
-            }
+            state.exchangePair?.fromCurrency = action.currency;
+            state.pickingCurrency = PickingCurrencyType.none;
+            _savePickedPairToCache();
             emit();
           case PickingCurrencyType.to:
-            state.exchangePair.toCurrency = action.currency;
-            if (state.pairPicked()) {
-              state.pickingCurrency = PickingCurrencyType.none;
-              _savePickedPairToCache();
-            } else {
-              state.pickingCurrency = PickingCurrencyType.from;
-            }
-            if (!pairWasPicked) {
-              state.showSearch = false;
-              state.searchQuery = "";
-            }
+            state.exchangePair?.toCurrency = action.currency;
+            state.pickingCurrency = PickingCurrencyType.none;
+            _savePickedPairToCache();
             emit();
           case PickingCurrencyType.none:
             break;
@@ -83,14 +68,10 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
   }
 
   Future<void> _savePickedPairToCache() async {
-    final fromCurrency = state.exchangePair.fromCurrency;
-    if (fromCurrency != null) {
-      await settingStorageRepository.putLatestFromCurrencyBriefName(fromCurrency.briefName);
-    }
-    final toCurrency = state.exchangePair.toCurrency;
-    if (toCurrency != null) {
-      await settingStorageRepository.putLatestToCurrencyBriefName(toCurrency.briefName);
-    }
+    final pair = state.exchangePair;
+    if (pair == null) return;
+    await settingStorageRepository.putLatestFromCurrencyBriefName(pair.fromCurrency.briefName);
+    await settingStorageRepository.putLatestToCurrencyBriefName(pair.toCurrency.briefName);
   }
 
   Future<void> _loadCurrencies() async {
@@ -111,11 +92,13 @@ class PickPairViewModel extends ViewModel<PickPairState, PickPairAction> {
     final fromCurrency = await settingStorageRepository.getLatestFromCurrencyBriefName();
     final toCurrency = await settingStorageRepository.getLatestToCurrencyBriefName();
     if (fromCurrency != null && toCurrency != null) {
-      state.exchangePair.fromCurrency = state.currencies.firstWhere((element) => element.briefName == fromCurrency);
-      state.exchangePair.toCurrency = state.currencies.firstWhere((element) => element.briefName == toCurrency);
-      state.pickingCurrency = PickingCurrencyType.none;
+      final firstCurrency = state.currencies.firstWhere((e) => e.briefName == fromCurrency);
+      final lastCurrency = state.currencies.firstWhere((e) => e.briefName == toCurrency);
+      state.exchangePair = ExchangePair(firstCurrency, lastCurrency);
     } else {
-      state.pickingCurrency = PickingCurrencyType.from;
+      final usdCurrency = state.currencies.firstWhere((c) => c.briefName == "USD");
+      final eurCurrency = state.currencies.firstWhere((c) => c.briefName == "EUR");
+      state.exchangePair = ExchangePair(usdCurrency,  eurCurrency);
     }
   }
 

@@ -55,19 +55,19 @@ class _PickPairScreenState extends State<PickPairScreen> {
                     hintText: localization.enterNameOfCurrency
                 ),
                 textCapitalization: TextCapitalization.sentences,
-                autofocus: true
+                autofocus: true,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               );
             }
         ),
         forceMaterialTransparency: true,
         actions: [
-          if (state.pairPicked())
-            IconButton(
-                onPressed: () {
-                  viewModel.handle(PickPairActionSwapExchangePairs());
-                },
-                icon: const Icon(Icons.swap_vert)
-            ),
+          IconButton(
+              onPressed: () {
+                viewModel.handle(PickPairActionSwapExchangePairs());
+              },
+              icon: const Icon(Icons.swap_vert)
+          ),
           if (!state.showSearch)
             IconButton(
                 onPressed: () {
@@ -119,7 +119,8 @@ class _PickPairScreenState extends State<PickPairScreen> {
             } else {
               return Column(
                 children: [
-                  state.pairPicked() ? ExchangePairComponent(
+                  SizedBox(height: 12),
+                  ExchangePairComponent(
                     pair: state.exchangePair,
                     onFromTap: () {
                       viewModel.handle(PickPairActionPickFromCurrency());
@@ -129,8 +130,8 @@ class _PickPairScreenState extends State<PickPairScreen> {
                     },
                     pickingFrom: state.pickingCurrency == PickingCurrencyType.from,
                     pickingTo: state.pickingCurrency == PickingCurrencyType.to,
-                  ) : Container(),
-                  SizedBox(height: state.pairPicked() ? 12 : 0),
+                  ),
+                  SizedBox(height: 12),
                   Expanded(
                       child: ListView.builder(
                           itemCount: visibleCurrencies.length,
@@ -149,7 +150,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
             }
           }
       ),
-      floatingActionButton: state.pairPicked() ? FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.pushNamed(
               context,
@@ -162,7 +163,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
           });
         },
         child: const Icon(Icons.navigate_next),
-      ) : null,
+      ),
     );
   }
 }

@@ -38,16 +38,14 @@ class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(width: 24),
-                  Text(
+                  SizedBox(width: 16),
+                  Expanded(child: Text(
                     widget.currency.fullName,
                     style: TextStyle(
                         fontSize: 20
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  )),
                   SizedBox(width: 16),
-                  Spacer(),
                   Text(
                     "[${widget.currency.briefName}]",
                     style: TextStyle(

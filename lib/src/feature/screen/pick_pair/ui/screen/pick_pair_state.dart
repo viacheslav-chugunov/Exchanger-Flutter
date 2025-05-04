@@ -8,7 +8,7 @@ class PickPairState {
   var loadingCurrencies = true;
   var failedToLoadCurrencies = false;
   List<Currency> currencies = [];
-  var exchangePair = ExchangePair.empty();
+  ExchangePair? exchangePair;
   var pickingCurrency = PickingCurrencyType.none;
 
   String title(AppLocalizations localization) {
@@ -26,10 +26,6 @@ class PickPairState {
         title = localization.pickPair;
     }
     return title;
-  }
-
-  bool pairPicked() {
-    return exchangePair.isNotEmpty();
   }
 
   List<Currency> visibleCurrencies() {
