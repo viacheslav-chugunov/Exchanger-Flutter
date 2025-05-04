@@ -1,0 +1,1 @@
+export 'package:exchanger/src/feature/screen/rate/ui/screen/rate_screen.dart';
