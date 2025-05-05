@@ -1,3 +1,4 @@
+import 'package:exchanger/l10n/gen_l10n/app_localizations.dart';
 import 'package:exchanger/src/core/core.dart';
 
 class RateState {
@@ -7,23 +8,23 @@ class RateState {
 
   RateState(this.exchangePair);
 
-  String fromIconPath() => exchangePair.fromCurrency?.imagePath ?? "";
+  String fromIconPath() => exchangePair.fromCurrency.imagePath;
 
-  String toIconPath() => exchangePair.toCurrency?.imagePath ?? "";
+  String toIconPath() => exchangePair.toCurrency.imagePath;
 
-  String fromHint() => exchangePair.fromCurrency?.fullName ?? "";
+  String fromHint(AppLocalizations localization) => exchangePair.fromCurrency.fullName(localization);
 
-  String toHint() => exchangePair.toCurrency?.fullName ?? "";
+  String toHint(AppLocalizations localization) => exchangePair.toCurrency.fullName(localization);
 
-  String fromBrief() => exchangePair.fromCurrency?.briefName ?? "";
+  String fromBrief() => exchangePair.fromCurrency.briefName;
 
-  String toBrief() => exchangePair.toCurrency?.briefName ?? "";
+  String toBrief() => exchangePair.toCurrency.briefName;
 
   String title() => fromBrief().isNotEmpty && toBrief().isNotEmpty ? "${fromBrief()}  /  ${toBrief()}" : "";
 
-  num fromRate() => exchangePair.fromCurrency?.rate ?? -1;
+  num fromRate() => exchangePair.fromCurrency.rate;
 
-  num toRate() => exchangePair.toCurrency?.rate ?? -1;
+  num toRate() => exchangePair.toCurrency.rate;
 
   num rate() => fromRate() != -1 && toRate() != -1 ? toRate() / fromRate() : -1;
 

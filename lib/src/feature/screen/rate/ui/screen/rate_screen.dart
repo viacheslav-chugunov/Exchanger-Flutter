@@ -1,3 +1,4 @@
+import 'package:exchanger/l10n/gen_l10n/app_localizations.dart';
 import 'package:exchanger/src/core/core.dart';
 import 'package:exchanger/src/feature/screen/rate/ui/screen/rate_action.dart';
 import 'package:exchanger/src/feature/screen/rate/ui/screen/rate_view_model.dart';
@@ -26,6 +27,7 @@ class _RateScreenState extends State<RateScreen> {
   @override
   Widget build(BuildContext context) {
     final state = viewModel.state;
+    final localization = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +62,7 @@ class _RateScreenState extends State<RateScreen> {
                 ),
               child: CurrencyInputComponent(
                 args: CurrencyInputComponentArgs(
-                  hint: state.fromHint(),
+                  hint: state.fromHint(localization),
                   input: state.fromCurrencyInput,
                   icon: ClipOval(
                     child: SvgPicture.asset(
@@ -85,7 +87,7 @@ class _RateScreenState extends State<RateScreen> {
               child: CurrencyInputComponent(
                   args: CurrencyInputComponentArgs(
                     input: state.toCurrencyInput,
-                    hint: state.toHint(),
+                    hint: state.toHint(localization),
                     icon: ClipOval(
                       child: SvgPicture.asset(
                           state.toIconPath(),

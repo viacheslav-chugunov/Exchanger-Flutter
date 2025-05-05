@@ -28,14 +28,14 @@ class PickPairState {
     return title;
   }
 
-  List<Currency> visibleCurrencies() {
+  List<Currency> visibleCurrencies(AppLocalizations localization) {
     final query = searchQuery.trim().toLowerCase();
     if (query.isEmpty) {
       return currencies;
     }
     return currencies.where((currency) {
       return currency.briefName.trim().toLowerCase().contains(query) ||
-          currency.fullName.trim().toLowerCase().contains(query);
+          currency.fullName(localization).trim().toLowerCase().contains(query);
     }).toList();
   }
 }

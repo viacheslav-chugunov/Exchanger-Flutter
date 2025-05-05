@@ -1,3 +1,4 @@
+import 'package:exchanger/l10n/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../../core/model/currency.dart';
@@ -13,8 +14,11 @@ class CurrencyTileComponent extends StatefulWidget {
 }
 
 class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
+
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
+
     return InkWell(
       onTap: () {
         widget.onTap?.call();
@@ -40,7 +44,7 @@ class _CurrencyTileComponentState extends State<CurrencyTileComponent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(child: Text(
-                    widget.currency.fullName,
+                    widget.currency.fullName(localization),
                     style: TextStyle(
                         fontSize: 20
                     ),

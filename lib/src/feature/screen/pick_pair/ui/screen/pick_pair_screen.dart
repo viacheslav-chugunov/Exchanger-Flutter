@@ -34,7 +34,7 @@ class _PickPairScreenState extends State<PickPairScreen> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context);
     final state = viewModel.state;
-    final visibleCurrencies = state.visibleCurrencies();
+    final visibleCurrencies = state.visibleCurrencies(localization);
 
     _searchController.text = state.searchQuery;
 
