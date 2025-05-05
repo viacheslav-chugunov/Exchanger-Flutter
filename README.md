@@ -1,16 +1,16 @@
-# exchanger
+# Exchanger
 
-A new Flutter project.
+## Free application that shows currency exchange rates. Currently, the application supports 27 world currencies.
 
-## Getting Started
+<p align="center">
+  <img src="https://github.com/viacheslav-chugunov/Exchanger-Flutter/blob/main/github_assets/preview_1.jpg" width="250" >
+  <b>&nbsp</b>
+  <img src="https://github.com/viacheslav-chugunov/Exchanger-Flutter/blob/main/github_assets/preview_2.jpg" width="250" >
+</p>
 
-This project is a starting point for a Flutter application.
+## Supported platforms
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Android
+- IOS
+- MacOS
+- Web
