@@ -9,7 +9,7 @@ class StorageGraph extends DiGraph {
     await Hive.initFlutter();
     final settingBox = await Hive.openBox<String>(settingBoxName);
     di.registerFactory<SettingStorageRepository>(() {
-      return DefaultSettingStorageRepository(settingBox);
+      return DefaultSettingStorageRepository(settingBox, inject());
     });
   }
 

@@ -31,5 +31,9 @@
   "sekFull": "Swedish Krona",
   "thbFull": "Thai Baht",
   "tryFull": "Turkish Lira",
-  "vndFull": "Vietnamese Dong"
+  "vndFull": "Vietnamese Dong",
+  "settings": "Settings",
+  "language": "Language",
+  "english": "English",
+  "russian": "Russian"
 }
